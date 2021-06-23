@@ -15,18 +15,20 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class AppConfig {
     @Bean
-    public MemberRepository memberRepository(){
-        return new MemoryMemberRepository();
-    }
-
-    @Bean
     public MemberService memberService() {
+        System.out.println("Call AppConfig.memberService");
         return new MemberServiceImpl(memberRepository());
     }
 
     @Bean
     public OrderService orderService() {
-        return new OrderServiceImpl(new MemoryMemberRepository(), new FixDiscountPolicy());
+        System.out.println("Call AppConfig.orderService");
+        return new OrderServiceImpl(memberRepository(), new FixDiscountPolicy());
+    }
+    @Bean
+    public MemberRepository memberRepository(){
+        System.out.println("Call AppConfig.memberRepository");
+        return new MemoryMemberRepository();
     }
 
     @Bean
